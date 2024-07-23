@@ -42,6 +42,8 @@ dotsloopx:
 
     dbra    d7,dotsloopy
 
+    bsr swap_screen
+
     movem.l (sp)+,d0-d7/a0-a6
 ; either - branch to the old vector
     move.l  oldvbl,-(sp)        ; go to old vector (system friendly ;) )

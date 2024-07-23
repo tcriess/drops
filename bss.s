@@ -1,5 +1,6 @@
 ; bss section at the end of the program
     bss
+screen:     ds.l 1 ; current screen address
 pscreen:    ds.l 1 ; physical screen address
 lscreen:    ds.l 1 ; logical screen address
 screentable:    ds.l 200 ; 160-bytes-steps of screen address
