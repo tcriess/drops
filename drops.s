@@ -1,5 +1,6 @@
 ; drops demo.
 ; 96k Atari ST intro for SillyVenture 2024 SE
+    text
 main:
     clr.l   -(sp)            ; supervisor mode on
     move.w  #$20,-(sp)
@@ -21,9 +22,12 @@ main:
     lea     $c(sp),sp
 
 ; initialisation
+    jsr     init_scroller
     bsr     init_screen
-    bsr     init_vbl
+    ; bsr     init_timers
+    clr.w   d0 ; subtune number
     bsr     music+0                 ; init music
+    bsr     init_timers
 
 ;;; test code, compute the square root of 10
 ;    moveq #10,d0
@@ -33,14 +37,17 @@ main:
 ; main
 
 mainloop:
-    bsr scan_keys
+    jsr scan_keys
     tst.w d0
     beq mainloop
 
 ; cleanup
-    bsr     cleanup_screen
+    jsr     cleanup_timers
+    jsr     waitvbi
+    ; jsr     cleanup_screen
     bsr     music+4                 ; de-init music
-    bsr     cleanup_vbl
+    bsr     music+8                 ; call music one last time (don't know if this is required)
+    jsr     cleanup_screen
 
 ; finally
     move.l  sv_ssp,-(sp)        ; back to user mode, restore old stack pointer
@@ -65,10 +72,16 @@ mainloop:
     include "dots.s"
 ; interrupts
     include "inter.s"
+; scroller
+    include "scroller.s"
 ; precomputed coordinates
     include "coords.s"
+; play sequences and precomputed y offsets
+    include "seq.s"
+; palette
+    include "pal.s"
 ; audio
-    include "audio.s"
+    ; include "audio.s"
 ; bss section
     include "bss.s"
     text

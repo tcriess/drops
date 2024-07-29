@@ -4,6 +4,7 @@
 ; x-coordinate in d0
 ; y-coordinate in d1
 ; destroys d0,d1,d2,a2,a3
+    text
 dot1x1:
     move.w d0,d2 ; save x  4 (1/0) 2
     lsr.w #1,d2 ; /2  8 (1/0) 2
@@ -228,7 +229,7 @@ dot2x2_x15:
 ; screen address table (160-bytes-steps) in a2 (already contains the 2-bytes-per-plane offset)
 ; x-coordinate in d0
 ; y-coordinate in d1
-; destroys d0,d1,d2,a2,a3,a4
+; destroys d0,d1,d2,a0,a2,a3,a4
 dot3x3:
     move.w d0,d2 ; save x
     lsr.w #1,d2 ; /2

@@ -10,6 +10,7 @@ bitshift equ 3
 ; square root of d (in d0)
 ; returns square root in d1
 ; destroys d1,d2,d3,d4 and d7
+    text
 sqrt:
 ; d1: x_k, x_0 = ~sqrt(d) (init value close to the target)
 ; d2: v_k, v_0 = ~1/x_0

@@ -1,5 +1,6 @@
 ; initialize everything screen-related
 ; no registers are destroyed
+    text
 init_screen:
     movem.l d0-d7/a0-a2,-(sp)
 
@@ -40,14 +41,25 @@ init_screen:
     dc.w $A00A  ; hide mouse
     move.b #$12,$FFFFFC02.w         ; disable mouse
 
-    lea     screentable,a0
+    lea     screentable1,a0
+    move.l  a0,screentable
     move.l  pscreen,a1
+    move.l  a1,screen
 
     move.w  #200-1,d0
-scrtloop:
+scrtloop1:
     move.l  a1,(a0)+
     adda.l  #160,a1
-    dbra    d0,scrtloop
+    dbra    d0,scrtloop1
+
+    lea     screentable2,a0
+    move.l  lscreen,a1
+
+    move.w  #200-1,d0
+scrtloop2:
+    move.l  a1,(a0)+
+    adda.l  #160,a1
+    dbra    d0,scrtloop2
 
     movem.l (sp)+,d0-d7/a0-a2
     rts
@@ -56,3 +68,38 @@ init_vbl:
     move.l  $70.w,oldvbl            ; store old VBL
     move.l  #vbl,$70.w              ; steal VBL
     rts
+
+init_timers:
+    ; move.l $120.w,oldtb
+    move.l $118.w,oldkey
+    move.l $118.w,newkey2+2
+    move.l $70.w,oldvbl ; vbl
+    move.b $fffffa07.w,old07
+    move.b $fffffa09.w,old09
+    move.b $fffffa13.w,old13
+    move.b $fffffa15.w,old15
+    move.b $fffffa1b.w,old1b
+    move.l #contr,a0
+    and.b #$df,$fffffa09.w
+    and.b #$fe,$fffffa07.w
+    move.b (a0)+,d0
+    cmp.b #21,d0
+    bne.s noinst
+    ; move.l #newtb,$120.w
+    move.l #vbl,$70.w ; vbl
+    move.l #newkey,$118.w
+    or.b #1,$fffffa07.w
+    or.b #1,$fffffa13.w
+noinst:
+    rts
+
+    data
+; old4: dc.l 0
+oldtb: dc.l 0
+oldkey: dc.l 0
+old07: dc.b 0
+old09: dc.b 0
+old13: dc.b 0
+old15: dc.b 0
+old1b: dc.b 0
+    even

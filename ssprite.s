@@ -8,6 +8,7 @@
 ; a0 - sprite address start (1st shift)
 ; destroys:
 ; d0-d1,a0
+    text
 init_1x1:   moveq.l #16-1,d0 ; shift 16 times
             move.l  #$8000,d1  ; 1000 0000 0000 0000 = 0x8000
 init1loop:  move.w  d1,(a0)+

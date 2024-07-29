@@ -1,6 +1,7 @@
 ; misc utility functions
 
 ; scan keys
+    text
 scan_keys:
 ; see if a key has been pressed; don't wait (BIOS call BCONSTAT).
 ; returns -1 in d0 if a key was pressed
@@ -30,11 +31,16 @@ swap_screen:
 
     bne.s swap_screen_2
 
-    move.l lscreen,screen
+    move.l  lscreen,screen
+    lea     screentable2,a0
+    move.l  a0,screentable
     rts
 
 swap_screen_2:
-    move.l pscreen,screen
+    move.l  pscreen,screen
+    lea     screentable1,a0
+    move.l  a0,screentable
     rts
 
+    data
 screenflag: dc.w 1
