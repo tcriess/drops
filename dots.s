@@ -474,3 +474,280 @@ dot3x3_x15: ; the last routine can be longer than 32 bytes
     ori.w #$C000,8(a2) ; 6 bytes
     rts
 
+; screen address table (160-bytes-steps) in a2 (already contains the 2-bytes-per-plane offset)
+; x-coordinate in d0
+; y-coordinate in d1
+; destroys d0,d1,d2,a0,a2,a3,a4
+dot4x4:
+    move.w d0,d2 ; save x
+    lsr.w #1,d2 ; /2
+    andi.w #$fff8,d2 ; mask out bit 0-2
+    add.w d1,d1
+    add.w d1,d1 ; d1 = y * 4
+    move.l 0(a2,d1.w),a3 ; a3 = screen address beginning of line
+    adda.w d2,a3 ; a3 = screen address beginning of line + correct x address 8 cycles
+    andi.w #$000f,d0 ; shift
+    lsl.w #6,d0 ; *64 64 bytes per routine
+    lea.l dot4x4_x0(pc),a0 ; a0 = dot routine 0
+    adda.w d0,a0
+    lea.l 160(a3),a4
+    lea.l 320(a3),a2
+    jmp (a0) ; jump to correct dot routine
+dot4x4_p2:
+    move.w d0,d2 ; save x
+    lsr.w #1,d2 ; /2
+    andi.w #$fff8,d2 ; mask out bit 0-2
+    add.w d1,d1
+    add.w d1,d1 ; d1 = y * 4
+    move.l 0(a2,d1.w),a3 ; a3 = screen address beginning of line
+    addq #2,a3 ; 2nd plane
+    adda.w d2,a3 ; a3 = screen address beginning of line + correct x address 8 cycles
+    andi.w #$000f,d0 ; shift
+    lsl.w #5,d0 ; *32 32 bytes per routine
+    lea.l dot4x4_x0(pc),a0 ; a0 = dot routine 0
+    adda.w d0,a0
+    lea.l 160(a3),a4
+    lea.l 320(a3),a2
+    jmp (a0) ; jump to correct dot routine
+dot4x4_x0:
+    ori.w #$F000,(a3) ; 4 bytes
+    ori.w #$F000,(a4) ; 4 bytes
+    ori.w #$F000,(a2) ; 4 bytes
+    ori.w #$F000,160(a2) ; 6 bytes
+    rts ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+    rept 16
+    nop ; 2 bytes * 16 = 32 bytes
+    endr
+dot4x4_x1:
+    ori.w #$7800,(a3) ; 4 bytes
+    ori.w #$7800,(a4) ; 4 bytes
+    ori.w #$7800,(a2) ; 4 bytes
+    ori.w #$7800,160(a2) ; 6 bytes
+    rts ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+    rept 16
+    nop ; 2 bytes * 16 = 32 bytes
+    endr
+dot4x4_x2:
+    ori.w #$3C00,(a3) ; 4 bytes
+    ori.w #$3C00,(a4) ; 4 btes
+    ori.w #$3C00,(a2) ; 4 bytes
+    ori.w #$3C00,160(a2) ; 6 bytes
+    rts ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+    rept 16
+    nop ; 2 bytes * 16 = 32 bytes
+    endr
+dot4x4_x3:
+    ori.w #$1E00,(a3)
+    ori.w #$1E00,(a4)
+    ori.w #$1E00,(a2)
+    ori.w #$1E00,160(a2)
+    rts
+    nop ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+    rept 16
+    nop ; 2 bytes * 16 = 32 bytes
+    endr
+dot4x4_x4:
+    ori.w #$0F00,(a3)
+    ori.w #$0F00,(a4)
+    ori.w #$0F00,(a2)
+    ori.w #$0F00,160(a2)
+    rts
+    nop ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+    rept 16
+    nop ; 2 bytes * 16 = 32 bytes
+    endr
+dot4x4_x5:
+    ori.w #$0780,(a3)
+    ori.w #$0780,(a4)
+    ori.w #$0780,(a2)
+    ori.w #$0780,160(a2)
+    rts
+    nop ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+    rept 16
+    nop ; 2 bytes * 16 = 32 bytes
+    endr
+dot4x4_x6:
+    ori.w #$03C0,(a3)
+    ori.w #$03C0,(a4)
+    ori.w #$03C0,(a2)
+    ori.w #$03C0,160(a2)
+    rts
+    nop ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+    rept 16
+    nop ; 2 bytes * 16 = 32 bytes
+    endr
+dot4x4_x7:
+    ori.w #$01E0,(a3)
+    ori.w #$01E0,(a4)
+    ori.w #$01E0,(a2)
+    ori.w #$01E0,160(a2)
+    rts
+    nop ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+    rept 16
+    nop ; 2 bytes * 16 = 32 bytes
+    endr
+dot4x4_x8:
+    ori.w #$00F0,(a3)
+    ori.w #$00F0,(a4)
+    ori.w #$00F0,(a2)
+    ori.w #$00F0,160(a2)
+    rts
+    nop ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+    rept 16
+    nop ; 2 bytes * 16 = 32 bytes
+    endr
+dot4x4_x9:
+    ori.w #$0078,(a3)
+    ori.w #$0078,(a4)
+    ori.w #$0078,(a2)
+    ori.w #$0078,160(a2)
+    rts
+    nop ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+    rept 16
+    nop ; 2 bytes * 16 = 32 bytes
+    endr
+dot4x4_x10:
+    ori.w #$003C,(a3)
+    ori.w #$003C,(a4)
+    ori.w #$003C,(a2)
+    ori.w #$003C,160(a2)
+    rts
+    nop ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+    rept 16
+    nop ; 2 bytes * 16 = 32 bytes
+    endr
+dot4x4_x11:
+    ori.w #$001E,(a3)
+    ori.w #$001E,(a4)
+    ori.w #$001E,(a2)
+    ori.w #$001E,160(a2)
+    rts
+    nop ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+    rept 16
+    nop ; 2 bytes * 16 = 32 bytes
+    endr
+dot4x4_x12:
+    ori.w #$000F,(a3)
+    ori.w #$000F,(a4)
+    ori.w #$000F,(a2)
+    ori.w #$000F,160(a2)
+    rts
+    nop ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+    rept 16
+    nop ; 2 bytes * 16 = 32 bytes
+    endr
+dot4x4_x13:
+    ori.w #$0007,(a3) ; 4 bytes
+    ori.w #$8000,8(a3) ; 6 bytes
+    ori.w #$0007,(a4) ; 4 bytes
+    ori.w #$8000,8(a4) ; 6 bytes
+    ori.w #$0007,(a2) ; 4 bytes
+    ori.w #$8000,8(a2) ; 6 bytes
+    ori.w #$0007,160(a2) ; 6 bytes
+    ori.w #$8000,168(a2) ; 6 bytes
+    rts ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+    nop ; 2 bytes
+dot4x4_x14:
+    ori.w #$0003,(a3) ; 4 bytes
+    ori.w #$C000,8(a3) ; 6 bytes
+    ori.w #$0003,(a4) ; 4 bytes
+    ori.w #$C000,8(a4) ; 6 bytes
+    ori.w #$0003,(a2) ; 4 bytes
+    ori.w #$C000,8(a2) ; 6 bytes
+    ori.w #$0003,160(a2) ; 6 bytes
+    ori.w #$C000,168(a2) ; 6 bytes
+    rts ; 2 bytes
+    rept 10
+    nop
+    endr
+dot4x4_x15: ; the last routine can be longer than 32 bytes
+    ori.w #$0001,(a3)  ; 4 bytes
+    ori.w #$E000,8(a3) ; 6 bytes
+    ori.w #$0001,(a4)  ; 4 bytes
+    ori.w #$E000,8(a4) ; 6 bytes
+    ori.w #$0001,(a2)  ; 4 bytes
+    ori.w #$E000,8(a2) ; 6 bytes
+    ori.w #$0001,160(a2)  ; 6 bytes
+    ori.w #$E000,168(a2) ; 6 bytes
+    rts ; 2 bytes
+    rept 10
+    nop
+    endr
+

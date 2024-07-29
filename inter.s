@@ -48,7 +48,7 @@ vbl:
     move.w d6,d0
     move.w d7,d1
     add.w (a5)+,d1
-    bsr dot3x3
+    bsr dot4x4 ; dot3x3
 
     rept 7
     move.l a6,a2
@@ -59,7 +59,7 @@ vbl:
     move.w d0,d6
     move.w d1,d7
     add.w (a5)+,d1
-    bsr dot3x3
+    bsr dot4x4 ; dot3x3
     endr
 
     ; 2nd line
@@ -74,7 +74,7 @@ vbl:
     move.w d0,d6
     move.w d1,d7
     add.w (a5)+,d1
-    bsr dot3x3
+    bsr dot4x4 ; dot3x3
 
     rept 7
     move.l a6,a2
@@ -85,7 +85,7 @@ vbl:
     move.w d0,d6
     move.w d1,d7
     add.w (a5)+,d1
-    bsr dot3x3
+    bsr dot4x4 ; dot3x3
     endr
 
     ; 3rd line
@@ -100,7 +100,7 @@ vbl:
     move.w d0,d6
     move.w d1,d7
     add.w (a5)+,d1
-    bsr dot3x3
+    bsr dot4x4 ; dot3x3
 
     rept 7
     move.l a6,a2
@@ -111,7 +111,7 @@ vbl:
     move.w d0,d6
     move.w d1,d7
     add.w (a5)+,d1
-    bsr dot3x3
+    bsr dot4x4 ; dot3x3
     endr
 
     ; 4th line
@@ -126,7 +126,7 @@ vbl:
     move.w d0,d6
     move.w d1,d7
     add.w (a5)+,d1
-    bsr dot3x3
+    bsr dot4x4 ; dot3x3
 
     rept 7
     move.l a6,a2
@@ -137,7 +137,7 @@ vbl:
     move.w d0,d6
     move.w d1,d7
     add.w (a5)+,d1
-    bsr dot3x3
+    bsr dot4x4 ; dot3x3
     endr
 
     ; 5th line
@@ -152,7 +152,7 @@ vbl:
     move.w d0,d6
     move.w d1,d7
     add.w (a5)+,d1
-    bsr dot3x3
+    bsr dot4x4 ; dot3x3
 
     rept 7
     move.l a6,a2
@@ -163,7 +163,7 @@ vbl:
     move.w d0,d6
     move.w d1,d7
     add.w (a5)+,d1
-    bsr dot3x3
+    bsr dot4x4 ; dot3x3
     endr
 
     ; 6th line
@@ -178,7 +178,7 @@ vbl:
     move.w d0,d6
     move.w d1,d7
     add.w (a5)+,d1
-    bsr dot3x3
+    bsr dot4x4 ; dot3x3
 
     rept 7
     move.l a6,a2
@@ -189,7 +189,7 @@ vbl:
     move.w d0,d6
     move.w d1,d7
     add.w (a5)+,d1
-    bsr dot3x3
+    bsr dot4x4 ; dot3x3
     endr
 
     ; 7th line
@@ -204,7 +204,7 @@ vbl:
     move.w d0,d6
     move.w d1,d7
     add.w (a5)+,d1
-    bsr dot3x3
+    bsr dot4x4 ; dot3x3
 
     rept 7
     move.l a6,a2
@@ -215,7 +215,7 @@ vbl:
     move.w d0,d6
     move.w d1,d7
     add.w (a5)+,d1
-    bsr dot3x3
+    bsr dot4x4 ; dot3x3
     endr
 
     ; 8th line
@@ -230,7 +230,7 @@ vbl:
     move.w d0,d6
     move.w d1,d7
     add.w (a5)+,d1
-    bsr dot3x3
+    bsr dot4x4 ; dot3x3
 
     rept 7
     move.l a6,a2
@@ -241,7 +241,7 @@ vbl:
     move.w d0,d6
     move.w d1,d7
     add.w (a5)+,d1
-    bsr dot3x3
+    bsr dot4x4 ; dot3x3
     endr
 
     jsr swap_screen

@@ -77,6 +77,18 @@ angular_seq:
     dc.w 5
     dc.w 2*bytes_per_alpha+6*bytes_per_diff ; alpha/beta offset
     dc.w 5
+
+    dc.w 3*bytes_per_alpha+6*bytes_per_diff ; alpha/beta offset
+    dc.w 15
+    dc.w 4*bytes_per_alpha+6*bytes_per_diff ; alpha/beta offset
+    dc.w 15
+    dc.w 5*bytes_per_alpha+6*bytes_per_diff ; alpha/beta offset
+    dc.w 15
+    dc.w 4*bytes_per_alpha+6*bytes_per_diff ; alpha/beta offset
+    dc.w 10
+    dc.w 3*bytes_per_alpha+6*bytes_per_diff ; alpha/beta offset
+    dc.w 5
+
     ; more sequences here
     dc.w -1
 

@@ -66,8 +66,6 @@ mainloop:
     include "math.s"
 ; utility functions
     include "util.s"
-; simple sprites
-    include "ssprite.s"
 ; dots
     include "dots.s"
 ; interrupts
