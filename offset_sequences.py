@@ -30,6 +30,7 @@ if __name__ == '__main__':
         yarr = []
         zarr = []
 
+        # print(f"    dc.w 0 ; global offset per frame")
         for x in range(-31,33,9):
             for y in range(-31,33,9):
                 xarr.append(x)

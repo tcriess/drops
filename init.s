@@ -52,6 +52,33 @@ scrtloop1:
     adda.l  #160,a1
     dbra    d0,scrtloop1
 
+    ; 2nd plane
+    move.l  pscreen,a1
+    addq.l  #2,a1
+    move.w  #200-1,d0
+scrtloop1a:
+    move.l  a1,(a0)+
+    adda.l  #160,a1
+    dbra    d0,scrtloop1a
+
+    ; 3rd plane
+    move.l  pscreen,a1
+    addq.l  #4,a1
+    move.w  #200-1,d0
+scrtloop1b:
+    move.l  a1,(a0)+
+    adda.l  #160,a1
+    dbra    d0,scrtloop1b
+
+    ; 4th plane
+    move.l  pscreen,a1
+    addq.l  #6,a1
+    move.w  #200-1,d0
+scrtloop1c:
+    move.l  a1,(a0)+
+    adda.l  #160,a1
+    dbra    d0,scrtloop1c
+
     lea     screentable2,a0
     move.l  lscreen,a1
 
@@ -60,6 +87,33 @@ scrtloop2:
     move.l  a1,(a0)+
     adda.l  #160,a1
     dbra    d0,scrtloop2
+
+    ; 2nd plane
+    move.l  lscreen,a1
+    addq.l  #2,a1
+    move.w  #200-1,d0
+scrtloop2a:
+    move.l  a1,(a0)+
+    adda.l  #160,a1
+    dbra    d0,scrtloop2a
+
+    ; 3rd plane
+    move.l  lscreen,a1
+    addq.l  #4,a1
+    move.w  #200-1,d0
+scrtloop2b:
+    move.l  a1,(a0)+
+    adda.l  #160,a1
+    dbra    d0,scrtloop2b
+
+    ; 4th plane
+    move.l  lscreen,a1
+    addq.l  #6,a1
+    move.w  #200-1,d0
+scrtloop2c:
+    move.l  a1,(a0)+
+    adda.l  #160,a1
+    dbra    d0,scrtloop2c
 
     movem.l (sp)+,d0-d7/a0-a2
     rts

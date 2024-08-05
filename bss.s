@@ -4,8 +4,8 @@ screen:     ds.l 1 ; current screen address
 pscreen:    ds.l 1 ; physical screen address
 lscreen:    ds.l 1 ; logical screen address
 screentable:    ds.l 1 ; address pointing to screentable1 or screentable2
-screentable1:   ds.l 200 ; 160-bytes-steps of screen address (1)
-screentable2:   ds.l 200 ; 160-bytes-steps of screen address (2)
+screentable1:   ds.l 200*4 ; 160-bytes-steps of screen address (4 planes) (1)
+screentable2:   ds.l 200*4 ; 160-bytes-steps of screen address (4 planes) (2)
 textab:  DS.L 8000                               ;ABSOLUTE ADDRESSES FOR TEXT STRIPS
 ypos:    DS.L 40                                 ;SCREEN ADDRESSES TO PUT TEXT
 sv_ssp:     ds.l 1 ; saved user stack pointer

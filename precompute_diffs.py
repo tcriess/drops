@@ -16,10 +16,10 @@ if __name__ == '__main__':
     print("; this file is generated using precompute_diffs.py")
     xmult = 1.8
     ymult = 1
-    zmult = 1
+    zmult = 0.25 # raw coordingates are roughly -50..+50
     xoffset = 160
     yoffset = 120
-    zoffset = 0
+    zoffset = 3 # we try to map the z coordinate to 1..4
     alphas = (20,25,30,35,40,45) # 6
     betas = (0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100,105,110,115,120,125,130,135,140,145,150,155,160,165,170,175,180) # 37
     bytes_per_diff = 24

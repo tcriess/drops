@@ -78,8 +78,8 @@ mainloop:
     include "seq.s"
 ; palette
     include "pal.s"
-; audio
-    ; include "audio.s"
+; playbook
+    include "play.s"
 ; bss section
     include "bss.s"
     text
