@@ -12,6 +12,9 @@ from time import sleep
 number_of_video_frames = 5
 CHUNK = 882 * number_of_video_frames # 1024 * 2
 
+number_of_frames = 300 # total number of frames to produce
+skip = 120 # skip the first 50 frames
+
 if __name__ == '__main__':
     samplerate, data = wavfile.read('./bumtarabum.wav')
     print(f"; samplerate={samplerate}")
@@ -83,8 +86,9 @@ if __name__ == '__main__':
             else:
                 vals[c] = -val
         
-        print(f"    dc.w {vals[0]},{vals[1]},{vals[2]},{vals[3]},{vals[4]},{vals[5]},{vals[6]},{vals[7]}")
-        print(f";    dc.w {number_of_video_frames} ; number of frames")
+        if skip <= i < skip + number_of_frames:
+            print(f"    dc.w {vals[0]},{vals[1]},{vals[2]},{vals[3]},{vals[4]},{vals[5]},{vals[6]},{vals[7]}")
+            print(f";    dc.w {number_of_video_frames} ; number of frames")
         # line_fft.set_ydata(np.abs(yf[0:CHUNK]) / (128 * CHUNK))
         #line_fft.set_ydata(yf_db)
 

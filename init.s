@@ -37,6 +37,10 @@ init_screen:
     lea        stdpalette,a2
     movem.l    d0-d7,(a2)
 
+    ; set new palette
+    movem.l palette,d0-d7
+    movem.l d0-d7,$ffff8240.w
+
     dc.w $A000  ; line a routine
     dc.w $A00A  ; hide mouse
     move.b #$12,$FFFFFC02.w         ; disable mouse

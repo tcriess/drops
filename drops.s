@@ -1,6 +1,7 @@
 ; drops demo.
 ; 96k Atari ST intro for SillyVenture 2024 SE
     text
+play_secs equ 45
 main:
     clr.l   -(sp)            ; supervisor mode on
     move.w  #$20,-(sp)
@@ -37,16 +38,20 @@ main:
 ; main
 
 mainloop:
+    move.w global_frame_cnt,d0
+    cmp.w #play_secs*50,d0
+    bge.s quit
     jsr scan_keys
     tst.w d0
     beq mainloop
 
+quit:
 ; cleanup
     jsr     cleanup_timers
     jsr     waitvbi
     ; jsr     cleanup_screen
     bsr     music+4                 ; de-init music
-    bsr     music+8                 ; call music one last time (don't know if this is required)
+    ; bsr     music+8                 ; call music one last time (don't know if this is required)
     jsr     cleanup_screen
 
 ; finally

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 from math import sin, cos, radians
+import sys
 
 # precompute the screen coordinates of an 8x8 raster
 
@@ -16,13 +17,15 @@ if __name__ == '__main__':
     print("; this file is generated using precompute_diffs.py")
     xmult = 1.8
     ymult = 1
-    zmult = 0.25 # raw coordingates are roughly -50..+50
+    zmult = 1.1
     xoffset = 160
     yoffset = 120
-    zoffset = 3 # we try to map the z coordinate to 1..4
-    alphas = (20,25,30,35,40,45) # 6
+    zoffset = 64
+    alphas = (20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100,105,110,115,120,125,130,135,140,145,150,155,160,165,170,175,180) # 6
     betas = (0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100,105,110,115,120,125,130,135,140,145,150,155,160,165,170,175,180) # 37
     bytes_per_diff = 24
+    min_screen_z = 500
+    max_screen_z = 0
     print(f"bytes_per_diff equ {bytes_per_diff}")
     print(f"diffs_per_alpha equ {len(betas)}")
     print(f"bytes_per_alpha equ {len(betas)*bytes_per_diff}")
@@ -36,6 +39,8 @@ if __name__ == '__main__':
             sx,sy,sz = compute_screen_coords(xcoord, ycoord, zcoord, alpha, beta)
             print("; lower left front coordinates")
             print(f"    dc.w {round(sx * xmult + xoffset)},{round(sy * ymult + yoffset)},{round(sz * zmult + zoffset)}")
+            max_screen_z = max(round(sz * zmult + zoffset), max_screen_z)
+            min_screen_z = min(round(sz * zmult + zoffset), min_screen_z)
 
             xcoord = -22
             ycoord = -31
@@ -45,6 +50,8 @@ if __name__ == '__main__':
             dx,dy,dz = nx-sx,ny-sy,nz-sz
             print("; diff x")
             print(f"    dc.w {round(dx * xmult)},{round(dy * ymult)},{round(dz * zmult)}")
+            max_screen_z = max(round(sz * zmult + zoffset) + 7*round(dz*zmult), max_screen_z)
+            min_screen_z = min(round(sz * zmult + zoffset) + 7*round(dz*zmult), min_screen_z)
 
             xcoord = -31
             ycoord = -22
@@ -54,6 +61,8 @@ if __name__ == '__main__':
             dx,dy,dz = nx-sx,ny-sy,nz-sz
             print("; diff y")
             print(f"    dc.w {round(dx * xmult)},{round(dy * ymult)},{round(dz * zmult)}")
+            max_screen_z = max(round(sz * zmult + zoffset) + 7*round(dz*zmult), max_screen_z)
+            min_screen_z = min(round(sz * zmult + zoffset) + 7*round(dz*zmult), min_screen_z)
 
             xcoord = -31
             ycoord = -31
@@ -63,4 +72,7 @@ if __name__ == '__main__':
             dx,dy,dz = nx-sx,ny-sy,nz-sz
             print("; diff z")
             print(f"    dc.w {round(dx * xmult)},{round(dy * ymult)},{round(dz * zmult)}")
+            max_screen_z = max(round(sz * zmult + zoffset) + 7*round(dz*zmult), max_screen_z)
+            min_screen_z = min(round(sz * zmult + zoffset) + 7*round(dz*zmult), min_screen_z)
             # print("    dc.w 0,0,0,0 ; filler to make the step 32 bytes")
+    print(f"; min z={min_screen_z}, max z={max_screen_z}")

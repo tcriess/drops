@@ -25,55 +25,91 @@ if __name__ == '__main__':
 
     # z=(cos( 0.5sqrt(x^2+y^2)-6n)/(0.5(x^2+y^2)+1+2n),  n={0...10}
 
-    for n in range(50):
-        xarr = []
-        yarr = []
-        zarr = []
+    # we create some different splash animations
 
-        # print(f"    dc.w 0 ; global offset per frame")
-        for x in range(-31,33,9):
-            for y in range(-31,33,9):
-                xarr.append(x)
-                yarr.append(y)
-                xscaled = x / 32 * 2 * pi * 4
-                yscaled = y / 32 * 2 * pi * 4
-                zarr.append( 10* cos( 0.5 * np.sqrt(xscaled**2 + yscaled**2) - 6*n ) / (0.5*( xscaled**2 + yscaled**2 ) + 1 + 2*n ) )
-        
-        zscale = 100
-        z = np.array(zarr)
-        z[z >= 100] = 99
+    zarr = []
+    print("silentseq50:") # 50 frames
+    # 1. no movement
+    for x in range(-31,33,9):
+        for y in range(-31,33,9):
+            zarr.append(0)
+    
+    zscale = 100
+    z = np.array(zarr)
+    z[z >= 100] = 99
+    for _ in range(10):
         for y in range(8):
             d = (zscale*z[y*8:(y+1)*8]).astype(int).astype(str)
             print(f"    dc.w {','.join(d)}")
         print(";    dc.w 5 ; number of frames to keep the previous offsets")
+    print("    dc.w 101 ; end of sequence")
+
+    for fac in (32, 48, 64):
+        print(f"dropseq{fac}:")
+
+        zmin = 500
+        zmax = 0
+
+        for n in range(40):
+            
+            #xarr = []
+            #yarr = []
+            zarr = []
+
+            # print(f"    dc.w 0 ; global offset per frame")
+            for x in range(-31,33,9):
+                for y in range(-31,33,9):
+                    #xarr.append(x)
+                    #yarr.append(y)
+                    #xscaled = x / 32 * 2 * pi * 4
+                    #yscaled = y / 32 * 2 * pi * 4
+                    xscaled = x / fac * 2 * pi * 4
+                    yscaled = y / fac * 2 * pi * 4
+                    val = 10* cos( 0.5 * np.sqrt(xscaled**2 + yscaled**2) - 6*n ) / (0.5*( xscaled**2 + yscaled**2 ) + 1 + 2*n )
+                    zarr.append( val )
+            
+            zscale = 100
+            z = np.array(zarr)
+            z[z >= 100] = 99
+            for y in range(8):
+                val = (zscale*z[y*8:(y+1)*8]).astype(int)
+                val[val>50] = 50
+                val[val<-50] = -50
+                d = val.astype(str)
+                print(f"    dc.w {','.join(d)}")
+                zmax = max(np.max(val), zmax)
+                zmin = min(np.min(val), zmin)
+            print(";    dc.w 5 ; number of frames to keep the previous offsets")
         
-        continue
-        x = np.array(xarr)
-        y = np.array(yarr)
-        z = np.array(zarr)
-        xi = np.linspace(x.min(), x.max(), 100)
-        yi = np.linspace(y.min(), y.max(), 100)
+            continue
+        
+            x = np.array(xarr)
+            y = np.array(yarr)
+            z = np.array(zarr)
+            xi = np.linspace(x.min(), x.max(), 100)
+            yi = np.linspace(y.min(), y.max(), 100)
 
-        X,Y = np.meshgrid(xi,yi)
+            X,Y = np.meshgrid(xi,yi)
 
-        Z = griddata((x,y),z,(X,Y), method='cubic')
+            Z = griddata((x,y),z,(X,Y), method='cubic')
 
-        fig, ax = plt.subplots(subplot_kw={"projection": "3d"})
-        surf = ax.plot_surface(X, Y, Z, cmap=cm.coolwarm,
-                        linewidth=0, antialiased=False)
-        ## Customize the z axis.
-        ax.set_zlim(-1.01, 1.01)
-        ax.zaxis.set_major_locator(LinearLocator(10))
-        ## A StrMethodFormatter is used automatically
-        ax.zaxis.set_major_formatter('{x:.02f}')
+            fig, ax = plt.subplots(subplot_kw={"projection": "3d"})
+            surf = ax.plot_surface(X, Y, Z, cmap=cm.coolwarm,
+                            linewidth=0, antialiased=False)
+            ## Customize the z axis.
+            ax.set_zlim(-1.01, 1.01)
+            ax.zaxis.set_major_locator(LinearLocator(10))
+            ## A StrMethodFormatter is used automatically
+            ax.zaxis.set_major_formatter('{x:.02f}')
 
-        ## Add a color bar which maps values to colors.
-        fig.colorbar(surf, shrink=0.5, aspect=5)
+            ## Add a color bar which maps values to colors.
+            fig.colorbar(surf, shrink=0.5, aspect=5)
 
-        plt.show()
+            plt.show()
 
 
-    print("    dc.w 101 ; end of sequences")
+        print("    dc.w 101 ; end of sequence")
+        print(f"    ; zmin={zmin}, zmax={zmax}")
 
     sys.exit()
 

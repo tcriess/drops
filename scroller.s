@@ -36,7 +36,7 @@ scroller:
     move.w #20-1,d1
 .l2             ; MOVEA.L (A1)+,A2    ;A2=DESTINATION
     add.w (a1)+,d2
-    lea.l 4(a6,d2.w),a2 ; plane 4
+    lea.l (a6,d2.w),a2 ; screen addr
     movea.l (a0)+,a3    ;A3=SOURCE
     rept 36
     move.b (a3)+,(a2) ; 12 (2/1) 2
@@ -44,7 +44,7 @@ scroller:
     endr
     add.w (a1)+,d2
     addq #1,d2
-    lea.l 4(a6,d2.w),a2 ; plane 4
+    lea.l (a6,d2.w),a2 ; screen addr
     movea.l (a0)+,a3
     rept 36
     move.b (a3)+,(a2)
@@ -128,18 +128,18 @@ ctab:   dc.b '?','['
 
 ;2000 CHARS
 text1:
-    dc.b "HI! THIS INTRO IS CALLED DROPS, IT SHOWS" ; 1 / 50
-    dc.b " WATER RIPPLES CAUSED BY A DROP IN 3D. I" ; 2 / 50
-    dc.b "T ALSO SHOWS A SPECTRUM ANALYSIS OF THE " ; 3 / 50
-    dc.b " MUSIC, WHICH IS CALLED BUMTARABUM BY DH" ; 4 / 50
-    dc.b "OR/MEC, MANY THANKS..... AND ALSO MANY T" ; 5 / 50
-    dc.b "HANKS TO GREY FOR MAKING THIS COLLABORAT" ; 6 / 50
-    dc.b "ON POSSIBLE (AND FOR SILLYVENTURE IN GEN" ; 7 / 50
-    dc.b "ERAL, OF COURSE). GRAPHICS AND PROGRAMMI" ; 8 / 50
-    dc.b "NG BY TECER OF HACKNOLOGY, FROM THE BEAU" ; 9 / 50
-    dc.b "TIFUL CITY OF KONSTANZ AT, YOU GUESSED I" ; 10 / 50
-    dc.b "T, LAKE CONSTANCE.                      " ; 11 / 50
-    dc.b "                                        " ; 12 / 50
+    dc.b "     DROPS         3      2      1      " ; 1 / 50
+    dc.b "GO                                      " ; 2 / 50
+    dc.b "                                        " ; 3 / 50
+    dc.b "                                        " ; 4 / 50
+    dc.b "                                        " ; 5 / 50
+    dc.b "                                        " ; 6 / 50
+    dc.b "         BASS!                          " ; 7 / 50
+    dc.b "                                        " ; 8 / 50
+    dc.b "HI SILLYVENTURE 2024 SE ... WE HOPE YOU " ; 9 / 50
+    dc.b "ENJOY OUR LITTLE INTRO...     MUSIC BY  " ; 10 / 50
+    dc.b "     DHOR MEC             PROGRAMMING BY" ; 11 / 50
+    dc.b "       TECER                            " ; 12 / 50
     dc.b "                                        " ; 13 / 50
     dc.b "                                        " ; 14 / 50
     dc.b "                                        " ; 15 / 50

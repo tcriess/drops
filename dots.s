@@ -755,3 +755,5 @@ dot4x4_x15: ; the last routine can be longer than 32 bytes
     nop
     endr
 
+dot_subroutines:
+    dc.l dot4x4,dot3x3,dot2x2,dot1x1
