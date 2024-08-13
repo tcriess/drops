@@ -21,11 +21,18 @@ if __name__ == '__main__':
     xoffset = 160
     yoffset = 120
     zoffset = 64
-    alphas = (20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100,105,110,115,120,125,130,135,140,145,150,155,160,165,170,175,180) # 6
-    betas = (0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100,105,110,115,120,125,130,135,140,145,150,155,160,165,170,175,180) # 37
+    alphas = (20,30,40,50) # 6
+    # betas = (0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100,105,110,115,120,125,130,135,140,145,150,155,160,165,170,175,180) # 37
+    betas = (0,5,10,15,20,25,30,35,40,45) #
     bytes_per_diff = 24
     min_screen_z = 500
     max_screen_z = 0
+    min_screen_x = 500
+    max_screen_x = 0
+    min_screen_y = 500
+    max_screen_y = 0
+    print(f"betas equ {len(betas)}")
+    print(f"alphas equ {len(alphas)}")
     print(f"bytes_per_diff equ {bytes_per_diff}")
     print(f"diffs_per_alpha equ {len(betas)}")
     print(f"bytes_per_alpha equ {len(betas)*bytes_per_diff}")
@@ -41,6 +48,10 @@ if __name__ == '__main__':
             print(f"    dc.w {round(sx * xmult + xoffset)},{round(sy * ymult + yoffset)},{round(sz * zmult + zoffset)}")
             max_screen_z = max(round(sz * zmult + zoffset), max_screen_z)
             min_screen_z = min(round(sz * zmult + zoffset), min_screen_z)
+            max_screen_x = max(round(sx * xmult + xoffset), max_screen_x)
+            min_screen_x = min(round(sx * xmult + xoffset), min_screen_x)
+            max_screen_y = max(round(sy * ymult + yoffset), max_screen_y)
+            min_screen_y = min(round(sy * ymult + yoffset), min_screen_y)
 
             xcoord = -22
             ycoord = -31
@@ -52,6 +63,10 @@ if __name__ == '__main__':
             print(f"    dc.w {round(dx * xmult)},{round(dy * ymult)},{round(dz * zmult)}")
             max_screen_z = max(round(sz * zmult + zoffset) + 7*round(dz*zmult), max_screen_z)
             min_screen_z = min(round(sz * zmult + zoffset) + 7*round(dz*zmult), min_screen_z)
+            max_screen_x = max(round(sx * xmult + xoffset) + 7*round(dx*xmult), max_screen_x)
+            min_screen_x = min(round(sx * xmult + xoffset) + 7*round(dx*xmult), min_screen_x)
+            max_screen_y = max(round(sy * ymult + yoffset) + 7*round(dy*ymult), max_screen_y)
+            min_screen_y = min(round(sy * ymult + yoffset) + 7*round(dy*ymult), min_screen_y)
 
             xcoord = -31
             ycoord = -22
@@ -63,6 +78,10 @@ if __name__ == '__main__':
             print(f"    dc.w {round(dx * xmult)},{round(dy * ymult)},{round(dz * zmult)}")
             max_screen_z = max(round(sz * zmult + zoffset) + 7*round(dz*zmult), max_screen_z)
             min_screen_z = min(round(sz * zmult + zoffset) + 7*round(dz*zmult), min_screen_z)
+            max_screen_x = max(round(sx * xmult + xoffset) + 7*round(dx*xmult), max_screen_x)
+            min_screen_x = min(round(sx * xmult + xoffset) + 7*round(dx*xmult), min_screen_x)
+            max_screen_y = max(round(sy * ymult + yoffset) + 7*round(dy*ymult), max_screen_y)
+            min_screen_y = min(round(sy * ymult + yoffset) + 7*round(dy*ymult), min_screen_y)
 
             xcoord = -31
             ycoord = -31
@@ -74,5 +93,11 @@ if __name__ == '__main__':
             print(f"    dc.w {round(dx * xmult)},{round(dy * ymult)},{round(dz * zmult)}")
             max_screen_z = max(round(sz * zmult + zoffset) + 7*round(dz*zmult), max_screen_z)
             min_screen_z = min(round(sz * zmult + zoffset) + 7*round(dz*zmult), min_screen_z)
+            max_screen_x = max(round(sx * xmult + xoffset) + 7*round(dx*xmult), max_screen_x)
+            min_screen_x = min(round(sx * xmult + xoffset) + 7*round(dx*xmult), min_screen_x)
+            max_screen_y = max(round(sy * ymult + yoffset) + 7*round(dy*ymult), max_screen_y)
+            min_screen_y = min(round(sy * ymult + yoffset) + 7*round(dy*ymult), min_screen_y)
             # print("    dc.w 0,0,0,0 ; filler to make the step 32 bytes")
+    print(f"; min x={min_screen_x}, max x={max_screen_x}")
+    print(f"; min y={min_screen_y}, max y={max_screen_y}")
     print(f"; min z={min_screen_z}, max z={max_screen_z}")

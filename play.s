@@ -25,13 +25,13 @@ current_ang_playbook:
 
 ang_playbook:
     dc.w 0
-    dc.l angular_seq0
+    dc.l angular_seq0 ; 150 frames
     dc.w 0 ; filler
-    dc.l angular_seq0_flash
+    dc.l angular_seq0_flash ; 10 frames
     dc.w 0 ; filler
-    dc.l angular_seq1
+    dc.l angular_slow_rot1 ; 95
     dc.w 0 ; filler
-    dc.l angular_seq1
+    dc.l angular_slow_rot2 ; 95
     dc.w 0 ; filler
-    dc.l angular_seq1
+    dc.l angular_slow_rot1 ; 95
     dc.w -1

@@ -1,7 +1,7 @@
 ; drops demo.
 ; 96k Atari ST intro for SillyVenture 2024 SE
     text
-play_secs equ 45
+play_secs equ 75
 main:
     clr.l   -(sp)            ; supervisor mode on
     move.w  #$20,-(sp)

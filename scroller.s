@@ -134,15 +134,15 @@ text1:
     dc.b "                                        " ; 4 / 50
     dc.b "                                        " ; 5 / 50
     dc.b "                                        " ; 6 / 50
-    dc.b "         BASS!                          " ; 7 / 50
+    dc.b "                              BUM!      " ; 7 / 50
     dc.b "                                        " ; 8 / 50
     dc.b "HI SILLYVENTURE 2024 SE ... WE HOPE YOU " ; 9 / 50
     dc.b "ENJOY OUR LITTLE INTRO...     MUSIC BY  " ; 10 / 50
     dc.b "     DHOR MEC             PROGRAMMING BY" ; 11 / 50
     dc.b "       TECER                            " ; 12 / 50
-    dc.b "                                        " ; 13 / 50
-    dc.b "                                        " ; 14 / 50
-    dc.b "                                        " ; 15 / 50
+    dc.b "HUGE THANKS TO GREY FOR MOTIVATING THIS " ; 13 / 50
+    dc.b "WORK .... AND GREETINGS TO ALL THE ATARI" ; 14 / 50
+    dc.b " FOLKS OUT THERE....                    " ; 15 / 50
     dc.b "                                        " ; 16 / 50
     dc.b "                                        " ; 17 / 50
     dc.b "                                        " ; 18 / 50
