@@ -1,0 +1,4 @@
+Title: Drops
+Author: Dhor/MEC and tecer
+Comp: ST/E Intro Comp 96KB
+Machine: 520 ST
