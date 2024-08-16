@@ -749,7 +749,7 @@ dot4x4_x15: ; the last routine can be longer than 32 bytes
     ori.w #$E000,8(a4) ; 6 bytes
     ori.w #$0001,(a2)  ; 4 bytes
     ori.w #$E000,8(a2) ; 6 bytes
-    ori.w #$E000,168(a2) ; 6 bytes
+    ori.w #$C000,168(a2) ; 6 bytes
     rts ; 2 bytes
     rept 5
     nop
